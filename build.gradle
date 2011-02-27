@@ -8,7 +8,7 @@ configurations {
 
 xsdOutputDir = "$buildDir/xsd/generated-sources"
 
-def generateXSD(xsdFile, packageName) {
+task xsdToJava << {
 	destDir = xsdOutputDir
 	ant.taskdef (
 		name: "xjc",
@@ -18,13 +18,9 @@ def generateXSD(xsdFile, packageName) {
 	ant.mkdir(dir: destDir)
 	ant.xjc (
 		destDir: destDir,
-		package: packageName,
-		schema: "src/main/xsd/$xsdFile"
+		package: "net.northfuse.ofx4j.domain",
+		schema: "src/main/xsd/OFX2_Protocol.xsd"
 	)
-}
-
-task ofx2_xjc << {
-	generateXSD "OFX2_Protocol.xsd", "net.northfuse.ofx4j.domain"
 }
 
 dependencies {
@@ -46,4 +42,4 @@ sourceSets {
 	}
 }
 
-compileJava.dependsOn ofx2_xjc
+compileJava.dependsOn xsdToJava
