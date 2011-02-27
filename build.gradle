@@ -7,20 +7,24 @@ configurations {
 }
 
 xsdOutputDir = "$buildDir/xsd/generated-sources"
+xsdInputDir = "src/main/xsd"
 
-task xsdToJava << {
-	destDir = xsdOutputDir
-	ant.taskdef (
-		name: "xjc",
-		classname: "com.sun.tools.xjc.XJCTask",
-		classpath: configurations.xjc.asPath
-	)
-	ant.mkdir(dir: destDir)
-	ant.xjc (
-		destDir: destDir,
-		package: "net.northfuse.ofx4j.domain",
-		schema: "src/main/xsd/OFX2_Protocol.xsd"
-	)
+task xsdToJava {
+	outputs.dir xsdOutputDir
+	inputs.dir xsdInputDir
+	doLast {
+		ant.taskdef (
+			name: "xjc",
+			classname: "com.sun.tools.xjc.XJCTask",
+			classpath: configurations.xjc.asPath
+		)
+		ant.mkdir(dir: xsdOutputDir)
+		ant.xjc (
+			destDir: xsdOutputDir,
+			package: "net.northfuse.ofx4j.domain",
+			schema: "$xsdInputDir/OFX2_Protocol.xsd"
+		)
+	}
 }
 
 dependencies {
