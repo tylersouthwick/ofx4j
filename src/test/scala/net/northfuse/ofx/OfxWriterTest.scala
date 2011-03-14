@@ -1,8 +1,17 @@
 package net.northfuse.ofx
 
-class OfxWriterTest {
-        @org.junit.Test
+import net.northfuse.ofx.domain._
+import org.junit.Test
+import java.io._
+
+class OfxWriterTest extends OfxWriter {
+
+        @Test
         def check {
-                println(OfxWriter.marshaller)
+		val ofx = new OFX
+		val out = new ByteArrayOutputStream
+		ofx.write(out)
+		println("output: " + ofx)
+		println(out.toString)
         }
 }
