@@ -45,7 +45,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<packageName>net.northfus.ofx4j.domain</packageName>
+					<packageName>net.northfuse.ofx4j.domain</packageName>
 					<schemaFiles>OFX2_Protocol.xsd</schemaFiles>
 				</configuration>
 			</plugin>
